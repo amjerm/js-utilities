@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "ES2017"
+    ],
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "outDir": "./tsc/",
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "es6",
+    "types": ["react"]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+  ]
+}

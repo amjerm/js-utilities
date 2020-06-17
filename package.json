@@ -1,0 +1,55 @@
+{
+  "name": "@amjerm/js-utilities",
+  "version": "1.0.0",
+  "description": "Various javascript utility functions",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "parcel build src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amjerm/js-utilities.git"
+  },
+  "author": "Adam Jermstad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amjerm/js-utilities/issues"
+  },
+  "homepage": "https://github.com/amjerm/js-utilities#readme",
+  "jest": {
+    "preset": "ts-jest",
+    "transform": {
+      "^.+\\.jsx?$": "<rootDir>/jest.transform.js"
+    }
+  },
+  "standard": {
+    "ignore": [
+      "/dist/**",
+      "/node_modules/**",
+      "**/*.ts",
+      "**/*.tsx",
+      "/tsc/**"
+    ],
+    "parser": "babel-eslint"
+  },
+  "ts-standard": {
+    "ignore": [
+      "/dist/**",
+      "/node_modules/**",
+      "**/*.js",
+      "**/*.jsx"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0",
+    "ts-standard": "^8.0.1",
+    "typescript": "^3.9.5"
+  }
+}
