@@ -6,7 +6,7 @@ import {
   makeMailURI,
   objectIsDense,
   validateWebsite,
-  prependToObjectKeys
+  prependToObjectKeys,
 } from './index'
 
 describe('Utilities', () => {
@@ -25,7 +25,10 @@ describe('Utilities', () => {
     })
 
     it('throws an error for number type', () => {
-      expect(() => formatPhoneNumber(1234567890)).toThrow('phoneNumber.replace is not a function')
+      // @ts-ignore
+      expect(() => formatPhoneNumber(1234567890)).toThrow(
+        'phoneNumber.replace is not a function'
+      )
     })
   })
 
@@ -33,11 +36,19 @@ describe('Utilities', () => {
     it('handles valid strings', () => {
       expect(validateWebsite('http://google.com')).toBe('http://google.com')
       expect(validateWebsite('https://google.com')).toBe('https://google.com')
-      expect(validateWebsite('http://www.google.com')).toBe('http://www.google.com')
+      expect(validateWebsite('http://www.google.com')).toBe(
+        'http://www.google.com'
+      )
       expect(validateWebsite('http://google.co.uk')).toBe('http://google.co.uk')
-      expect(validateWebsite('http://www.google.co.uk')).toBe('http://www.google.co.uk')
-      expect(validateWebsite('https://www.google.co.uk')).toBe('https://www.google.co.uk')
-      expect(validateWebsite('www.google.co.uk')).toBe('http://www.google.co.uk')
+      expect(validateWebsite('http://www.google.co.uk')).toBe(
+        'http://www.google.co.uk'
+      )
+      expect(validateWebsite('https://www.google.co.uk')).toBe(
+        'https://www.google.co.uk'
+      )
+      expect(validateWebsite('www.google.co.uk')).toBe(
+        'http://www.google.co.uk'
+      )
       expect(validateWebsite('www.google.com')).toBe('http://www.google.com')
       expect(validateWebsite('www.google.ca')).toBe('http://www.google.ca')
       expect(validateWebsite('google.ca')).toBe('http://google.ca')
@@ -134,8 +145,8 @@ describe('Utilities', () => {
         b: 'foo',
         c: {
           z: true,
-          x: 'bar'
-        }
+          x: 'bar',
+        },
       }
 
       const result = prependToObjectKeys(startObj, 'test')
@@ -145,16 +156,16 @@ describe('Utilities', () => {
         'foo',
         {
           z: true,
-          x: 'bar'
-        }
+          x: 'bar',
+        },
       ])
       expect(result).toEqual({
         testa: true,
         testb: 'foo',
         testc: {
           z: true,
-          x: 'bar'
-        }
+          x: 'bar',
+        },
       })
     })
   })
@@ -163,11 +174,19 @@ describe('Utilities', () => {
     const mailObj = {
       to: ['bill@test.com', 'jane@test.com'],
       subject: 'Lorem ipsum',
-      body: 'Now that the, uh, garbage ball is in space, Doctor, perhaps you can help me with my sexual inhibitions? Is that a cooking show? Bender, we\'re trying our best. Bender, we\'re trying our best. Yes! In your face, Gandhi! Maybe I love you so much I love you no matter who you are pretending to be. Wow, you got that off the Internet? In my day, the Internet was only used to download pornography. Five hours? Aw, man! Couldn\'t you just get me the death penalty?'
+      body: "Now that the, uh, garbage ball is in space, Doctor, perhaps you can help me with my sexual inhibitions? Is that a cooking show? Bender, we're trying our best. Bender, we're trying our best. Yes! In your face, Gandhi! Maybe I love you so much I love you no matter who you are pretending to be. Wow, you got that off the Internet? In my day, the Internet was only used to download pornography. Five hours? Aw, man! Couldn't you just get me the death penalty?",
     }
 
-    it('generates correct uri', () => {
-      expect(makeMailURI(mailObj)).toBe('mailto:bill@test.com,jane@test.com?subject=Lorem ipsum&body=Now%20that%20the%2C%20uh%2C%20garbage%20ball%20is%20in%20space%2C%20Doctor%2C%20perhaps%20you%20can%20help%20me%20with%20my%20sexual%20inhibitions%3F%20Is%20that%20a%20cooking%20show%3F%20Bender%2C%20we\'re%20trying%20our%20best.%20Bender%2C%20we\'re%20trying%20our%20best.%20Yes!%20In%20your%20face%2C%20Gandhi!%20Maybe%20I%20love%20you%20so%20much%20I%20love%20you%20no%20matter%20who%20you%20are%20pretending%20to%20be.%20Wow%2C%20you%20got%20that%20off%20the%20Internet%3F%20In%20my%20day%2C%20the%20Internet%20was%20only%20used%20to%20download%20pornography.%20Five%20hours%3F%20Aw%2C%20man!%20Couldn\'t%20you%20just%20get%20me%20the%20death%20penalty%3F')
+    it('generates correct uri with recipient array', () => {
+      expect(makeMailURI(mailObj)).toBe(
+        "mailto:bill@test.com,jane@test.com?subject=Lorem ipsum&body=Now%20that%20the%2C%20uh%2C%20garbage%20ball%20is%20in%20space%2C%20Doctor%2C%20perhaps%20you%20can%20help%20me%20with%20my%20sexual%20inhibitions%3F%20Is%20that%20a%20cooking%20show%3F%20Bender%2C%20we're%20trying%20our%20best.%20Bender%2C%20we're%20trying%20our%20best.%20Yes!%20In%20your%20face%2C%20Gandhi!%20Maybe%20I%20love%20you%20so%20much%20I%20love%20you%20no%20matter%20who%20you%20are%20pretending%20to%20be.%20Wow%2C%20you%20got%20that%20off%20the%20Internet%3F%20In%20my%20day%2C%20the%20Internet%20was%20only%20used%20to%20download%20pornography.%20Five%20hours%3F%20Aw%2C%20man!%20Couldn't%20you%20just%20get%20me%20the%20death%20penalty%3F"
+      )
+    })
+
+    it('generates correct uri with recipient string', () => {
+      expect(makeMailURI({ ...mailObj, to: 'bill@test.com' })).toBe(
+        "mailto:bill@test.com?subject=Lorem ipsum&body=Now%20that%20the%2C%20uh%2C%20garbage%20ball%20is%20in%20space%2C%20Doctor%2C%20perhaps%20you%20can%20help%20me%20with%20my%20sexual%20inhibitions%3F%20Is%20that%20a%20cooking%20show%3F%20Bender%2C%20we're%20trying%20our%20best.%20Bender%2C%20we're%20trying%20our%20best.%20Yes!%20In%20your%20face%2C%20Gandhi!%20Maybe%20I%20love%20you%20so%20much%20I%20love%20you%20no%20matter%20who%20you%20are%20pretending%20to%20be.%20Wow%2C%20you%20got%20that%20off%20the%20Internet%3F%20In%20my%20day%2C%20the%20Internet%20was%20only%20used%20to%20download%20pornography.%20Five%20hours%3F%20Aw%2C%20man!%20Couldn't%20you%20just%20get%20me%20the%20death%20penalty%3F"
+      )
     })
   })
 })

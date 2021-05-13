@@ -8,7 +8,10 @@ export const formatPhoneNumber = (phoneNumber: string): string => {
   const cleanNumber = phoneNumber.replace(re, '')
 
   if (cleanNumber.length === 10) {
-    return `(${cleanNumber.substring(0, 3)}) ${cleanNumber.substring(3, 6)}-${cleanNumber.substring(6)}`
+    return `(${cleanNumber.substring(0, 3)}) ${cleanNumber.substring(
+      3,
+      6
+    )}-${cleanNumber.substring(6)}`
   }
 
   return phoneNumber
@@ -22,7 +25,10 @@ export const formatPhoneNumber = (phoneNumber: string): string => {
 export const validateWebsite = (website: string): string | null => {
   let cleanedUrl = website.trim()
 
-  if (typeof cleanedUrl === 'string' && cleanedUrl.match(/^[\w:/.-]+\.[\w]{2,}(\/)?$/) !== null) {
+  if (
+    typeof cleanedUrl === 'string' &&
+    cleanedUrl.match(/^[\w:/.-]+\.[\w]{2,}(\/)?$/) !== null
+  ) {
     const re = /^http(s)?:\/\//
 
     if (cleanedUrl.match(re) === null) {
@@ -51,10 +57,10 @@ export const getLastURISegment = (uri: string): string => {
 }
 
 /**
-* Used to determine if an object is without null values in the first level.
-* @param {object}
-* @returns {boolean}
-*/
+ * Used to determine if an object is without null values in the first level.
+ * @param {object}
+ * @returns {boolean}
+ */
 export const objectIsDense = (object: object): boolean => {
   const valuesArray = Object.values(object)
 
@@ -80,10 +86,13 @@ export const hasValue = (input: any): boolean => {
  * @param {object} - Routes object
  * @returns {object}
  */
-export const prependToObjectKeys = (object: { [key: string]: any }, string: string): object => {
+export const prependToObjectKeys = (
+  object: { [key: string]: any },
+  string: string
+): object => {
   const newObject: { [key: string]: any } = {}
 
-  Object.entries(object).forEach(entry => {
+  Object.entries(object).forEach((entry) => {
     newObject[`${string}${entry[0]}`] = entry[1]
   })
 
@@ -95,10 +104,23 @@ export const prependToObjectKeys = (object: { [key: string]: any }, string: stri
  * @param {object} - Email details object
  * @returns {string}
  */
-export const makeMailURI = ({ to, body, ...parameters }: { to: string, body: string }): string => {
-  const recipientString = Array.isArray(to) ? to.join(',') : typeof to === 'string' ? to : ''
+export const makeMailURI = ({
+  to,
+  body,
+  ...parameters
+}: {
+  to: string | string[]
+  body: string
+}): string => {
+  const recipientString = Array.isArray(to)
+    ? to.join(',')
+    : typeof to === 'string'
+    ? to
+    : ''
 
-  let mailToUri = `mailto:${typeof recipientString === 'string' ? recipientString : ''}`
+  let mailToUri = `mailto:${
+    typeof recipientString === 'string' ? recipientString : ''
+  }`
   let parameterOperator = '?'
 
   for (let [key, value] of Object.entries(parameters)) {
@@ -116,7 +138,7 @@ export const makeMailURI = ({ to, body, ...parameters }: { to: string, body: str
     mailToUri += `&body=${encodeURIComponent(body) ?? ''}`
   }
 
-  mailToUri = mailToUri.replace('%u2019', '\'')
+  mailToUri = mailToUri.replace('%u2019', "'")
 
   return mailToUri
 }
