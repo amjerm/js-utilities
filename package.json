@@ -20,7 +20,7 @@
   "jest": {
     "preset": "ts-jest",
     "transform": {
-      "^.+\\.jsx?$": "<rootDir>/jest.transform.js"
+      "^.+\\.jsx?$": "<rootDir>/jest.transform.ts"
     }
   },
   "standard": {
