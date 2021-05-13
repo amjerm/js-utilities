@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "jsx": "react",
-    "lib": [
-      "dom",
-      "ES2017"
-    ],
+    "lib": ["dom", "ES2017"],
     "module": "es6",
     "moduleResolution": "node",
     "noImplicitReturns": true,
@@ -13,13 +9,11 @@
     "resolveJsonModule": true,
     "strict": true,
     "target": "es6",
-    "types": ["react"]
+    "baseUrl": "./src",
+    "paths": {
+      "~*": ["./*"]
+    }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-      "node_modules",
-      "**/*.spec.ts"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
