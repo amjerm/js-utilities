@@ -37,7 +37,7 @@ Various utility functions
 **prependToObjectKeys**
 
 - Prepends a string to all property names in an object
-- @param {object} - Routes object
+- @param {object}
 - @returns {object}
 
 **makeMailURI**
